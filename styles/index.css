@@ -153,6 +153,14 @@ body {
   overflow: hidden;
 }
 
+.blur-img {
+  width: 100%;
+}
+
+body {
+  min-width: 320px;
+}
+
 .overlay {
   position: fixed;
   left: 0;
@@ -282,6 +290,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 0px 15px;
 }
 
 .header {
@@ -337,7 +346,7 @@ body {
   gap: 1px;
 }
 .promo-section__list-item-count {
-  filter: blur(16px);
+  filter: blur(5px);
   color: #7065f0;
   font-family: "Montserrat", sans-serif;
   font-size: 24px;
@@ -419,4 +428,51 @@ body {
 .blur-img {
   display: block;
   margin: 0 auto;
+}
+
+@media (max-width: 1280px) {
+  .wrapper {
+    max-width: 960px;
+  }
+  .promo-section {
+    background-position: bottom 73px right 55px, top 39px right 176px, top 0 right 245px, right center;
+    background-size: 186px 246px, 226px 295px, 663px 712px, contain;
+  }
+  .advantages-section__list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 960px) {
+  .wrapper {
+    max-width: 720px;
+  }
+  .promo-section__wrapper {
+    padding-top: 100px;
+    padding-bottom: 74px;
+  }
+  .promo-section {
+    background-position: bottom 40px right 8px, top 25px right 40px, top 0 right 245px, right center;
+    background-size: 149px 198px, 162px 217px, 663px 712px, contain;
+  }
+  .heading, .overlay__form-heading {
+    font-size: 16px;
+  }
+  .subheading {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+}
+@media (max-width: 575px) {
+  .promo-section__wrapper {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .promo-section {
+    background-position: bottom 136px right 8px, top 152px right 40px, top 0 right 266px, right center;
+    background-size: 134px 172px, 131px 184px, 690px 712px, cover;
+  }
+  .promo-section__list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }/*# sourceMappingURL=index.css.map */

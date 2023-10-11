@@ -1,5 +1,4 @@
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
 const overlayEl = document.querySelector('.overlay');
 const formInOverlayEl = overlayEl.querySelector('form');
 const closeBtnEl = overlayEl.querySelector('.overlay__close');
@@ -68,6 +67,10 @@ const validateForm = (cfg) => {
           } else {
             removeInputError(telInputEl, 'error');
           }
+          if (emailRegex.test(emailInputEl.value)) {
+            removeInputError(emailInputEl, 'error');
+            removeInputError(telInputEl, 'error');
+          }
         });
 
       emailInputEl &&
@@ -76,6 +79,10 @@ const validateForm = (cfg) => {
             addInputError(emailInputEl, 'error');
           } else {
             removeInputError(emailInputEl, 'error');
+          }
+          if (+telInputEl.value.length === 18) {
+            removeInputError(emailInputEl, 'error');
+            removeInputError(telInputEl, 'error');
           }
         });
 
@@ -112,7 +119,33 @@ const validateForm = (cfg) => {
           removeInputError(telInputEl, 'error');
         }
 
-        !form.querySelectorAll('.error').length && form.submit();
+        if (Array.from(inputEls).some((inp) => inp.value)) {
+          inputEls.forEach((inp) => inp.classList.remove('error'));
+        }
+
+        if (!form.querySelectorAll('.error').length) {
+          const email = emailInputEl.value;
+          const tel = telInputEl.value;
+
+          const json = JSON.stringify({
+            email: email,
+            tel: tel,
+          });
+          console.log(json);
+          fetch('https://api.mr-flip.ru/api/v1/new-buildings/user-data/set', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8',
+            },
+            body: json,
+          }).then((res) => {
+            if (res.ok) {
+              overlayEl.classList.add('success');
+            } else {
+              overlayEl.classList.add('failed');
+            }
+          });
+        }
       });
     });
 };
